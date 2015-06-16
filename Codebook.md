@@ -2,11 +2,14 @@
 
 ## CODES USED IN **INPUT** RAW DATA FILES
 
-### Subject IDs
-There are 30 unique Subject IDs. These are coded as integers in the range 1-30.
+### Subject IDs (/test/subject_test.txt and /train/subject_train.txt)
+This is a single column containing one 1 of 30 unique Subject IDs. These are coded as integers in the range 1-30.
 
-### Activity Labels (activity_labels.txt)
-There are 6 of these, labelled as:
+### Activity IDs (/test/y_test.txt and /train/y_train.txt)
+This is a single column containing one 1 of 6 of ActivityID codes. These are coded as integers in the range 1-6.
+
+### Activity Labels (labels.txt)
+This file related the ActivityID code to a names activity, labelled as:
 
 1 WALKING  
 2 WALKING_UPSTAIRS  
@@ -595,12 +598,12 @@ This consists of 21 subjects in 6 conditions,  each of which has a mean of 58.34
 ## CODES USED IN **INTERMEDIATE** DATA FILE (PROCESSED DATA AS AT END OF STEP 4)
 
 ### SubjectID (Column 1)
-There are 30 unique Subject IDs. These are coded as integers in the range 1-30.
+This is a single column containing one 1 of 30 unique Subject IDs. These are coded as integers in the range 1-30.
 (This is the same as the raw input files).
 
 
 ### Activity (Column 2)
-There are 6 of these:
+This column contains one 1 of 6 unique character strings corresponding to different activities:
 
 WALKING  
 WALKING_UPSTAIRS  
@@ -611,7 +614,7 @@ LAYING
 
 
 ### Set (Column 3)
-There are 2 of these, corresponding to which file the data originated from:
+Theis column contains 1 of 2 unique character strings corresponding to which directory/file the data originated from:
 
 test  
 train
@@ -695,17 +698,17 @@ This has 10299 rows, comprised of 2947 rows from the test data set and 7352 rows
 
 
 
-## CODES USED IN **OUTPUT** TIDY DATA FILE ("tidy_averages.txt")
+## CODES USED IN **OUTPUT** TIDY DATA FILE (tidy_averages.txt)
 This is the independent tidy data set containing the average of each variable for each activity and each subject.
 
 
 ### SubjectID (Column 1)
-There are 30 unique Subject IDs. These are coded as integers in the range 1-30.
+This is a single column containing one 1 of 30 unique Subject IDs. These are coded as integers in the range 1-30.
 (This is the same as the raw input and the intermediate *data* file).
 
 
 ### Activity (Column 2)
-There are 6 of these:
+This column contains one 1 of 6 unique character strings corresponding to different activities:
 
 WALKING  
 WALKING_UPSTAIRS  
@@ -718,7 +721,7 @@ This is the same as the intermediate *data* file.
 
 
 ### Mean Feature Labels (Columns 3-68)
-There are 66 of these, labelled the same as the intermediate *data* file above. However, here the values represent the average of each variable for each activity and each subject (i.e. collapsed over time)
+There are 66 of these, labelled the same as the intermediate *data* file above. However, here the values represent the average of each variable for each activity and each subject
 
 **Col	Name**  
  3		 TimeBodyAcc.mean.X          
