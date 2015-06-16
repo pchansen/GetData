@@ -15,7 +15,7 @@ run_analysis <- function() {
     #------------------------------------------------------------------------------------------------------------------
     # Downloading stage
     data_dir  <- "C:/Coursera/UCI HAR Dataset"            # Directory where unzipped data is saved
-    save_file <- "tidy_analysis.txt"                      # Name of the final saved output file (mean results from tidy)
+    save_file <- "tidy_averages.txt"                      # Name of the final saved output file (mean results from tidy)
     
     # Check if the data files exist locally, if not retrieve and unzip them
     if (!dir.exists(data_dir)) {
@@ -55,7 +55,7 @@ run_analysis <- function() {
     #------------------------------------------------------------------------------------------------------------------
     # Step 2. Extract from data the only the feature columns containing mean or standard deviation measures. 
     # Also retain subject, set and activity data in columns 1:3 from the overall dataframe
-    idx  <- c(1:3, 3+sort(c(grep("mean()",features$Feature), grep("std()",features$Feature))))    
+    idx  <- c(1:3, 3+sort(c(grep("mean\\(\\)",features$Feature), grep("std\\(\\)",features$Feature))))    
     data <- data[,idx]
     
     #------------------------------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ run_analysis <- function() {
     #         variable for each activity and each subject.
     
     # First restructure the data into long format
-    data_long <- gather(data, Feature, Value, 4:82)
+    data_long <- gather(data, Feature, Value, 4:ncol(data))
     
     # Group the data by SubjectID, Activity and Feature
     dataGroup <- group_by(data_long, SubjectID, Activity, Feature)
