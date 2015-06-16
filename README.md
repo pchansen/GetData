@@ -151,4 +151,6 @@ Cleaning up these columns and making more readable is achieved by:
 This is achieved very simply by using the tidyr library commands. The dataframe is first converted to long format using the gather() command. It is then grouped by SubjectID, Activity and Feature using
 the group_by() command. The summarize() command is then applied to extract the mean values of each Feature per Activity per Subject. At this point, the mean summarized tidy data needs to be written out
 to a text file. However there is a choice to be made between writing it out in long format (14220 rows by 4 cols) or wide format (180 rows by 81 cols). The latter format seems more readable so the long
-form mean summary data is converted to a wide format version using the spread() command prior to being written out as a txt file created with write.table() using row.name=FALSE.
+form mean summary data is converted to a wide format version using the spread() command prior to being written out as a txt file created with write.table() using row.name=FALSE. This file has 180 rows, 
+comprising 30 subjects x 6 activity conditions (30x6=180) and 81 columns comprising 2 ID columns (SubjectID and Activity) together with 79 columns that are the mean values of the selected mean/std 
+features.
