@@ -1,6 +1,6 @@
 # Codebook
 
-## Data Processing
+## DATA PROCESSING
 
 ### Initial Inspection of Data
 
@@ -18,19 +18,19 @@ the run_analysis script.
 
 The script checks whether or not the source zip data file has been downloaded and unzipped. If this has not happened, then it downloads the zip file and unzips it in a pre-specified directory.
 The 8 main data files are then read into memory as dataframes. The files are:
-- features.txt				Description of data features in columns of X_*.txt files
-- activity_labels.txt 		Description of activities in column 2 of y_*.txt files
-- /test/subject_test.txt	ID labels for subjects in test set
-- /test/X_test.txt			Processed feature data for test subjects
-- /test/y_test.txt			Activity labels for subjects in test set
-- /train/subject_train.txt	ID labels for subjects in training set
-- /train/X_train.txt		Processed feature data for training subjects
-- /train/y_train.txt		Activity labels for subjects in training set
+- features.txt - Description of data features in columns of X_*.txt files
+- activity_labels.txt - Description of activities in column 2 of y_*.txt files
+- /test/subject_test.txt - ID labels for subjects in test set
+- /test/X_test.txt - Processed feature data for test subjects
+- /test/y_test.txt - Activity labels for subjects in test set
+- /train/subject_train.txt - ID labels for subjects in training set
+- /train/X_train.txt - Processed feature data for training subjects
+- /train/y_train.txt - Activity labels for subjects in training set
     
 
 ### Step 1 - Merging of data
 
-To start creating a tidy data set the columns of /test/subject_test.txt (1 col), /test/y_test.txt (1 col) and /test/y_test.txt (561 cols )were combined to create a new dataset, called *test*. 
+To start creating a tidy data set the columns of /test/subject_test.txt (1 col), /test/y_test.txt (1 col) and /test/y_test.txt (561 cols) were combined to create a new dataset, called *test*. 
 A new column descriptor "Set" containing the value "test" was also added in the event that identification of the original source of the data was needed (564 cols in total, 2947 rows).
 
 The columns of /train/subject_train.txt, /train/y_train.txt and /train/y_train.txt were similarly combined to create a new dataset, called *train*. A new column descriptor "Set"
@@ -46,7 +46,7 @@ There is some ambiguity about how to interpret and operationalize this step. I c
 either contained the string "mean()" or the string "std()" to create an index *idx*. This index was used to extract only those corresponding columns from *data*, together with the initial 3 
 id columns (SubjectID, ActivityID, Set). The features_info.txt file identifies 17 different features to which various measures (such as mean(), std(), mad(), max(), min()) are applied.
 However of these features, 8 are separable X/Y/Z measures and 9 are non-separable MAG measures so there are in fact 8 x 3 + 9 = 33 unique measures. The intention of this operationalization was 
-to extract only the first two of the statistic measures (mean() and std()) from the dataset as applied to these 33 measures (i.e. 66 measurements). This choice of selection *excludes* those 
+to extract only the first two of the statistic measures (mean() and std()) from the dataset as applied to these 33 measures (i.e. 66 measurements). This choice of selection excludes those 
 Features that are defined by meanFreq() (weighted average of the frequency components to obtain a mean frequency) and those defined on angle() such as angle(tBodyAccMean,gravity) (i.e. features 
 555-561 in features.txt or cols 558 to 564 in dataframe *data*). This creates a reduced dataframe, still called *data* containing 69 columns (the 3 ID cols of SubjectID, ActivityID and Set + 66 
 mean/std feature cols) and 10299 rows.
@@ -93,7 +93,7 @@ comprising 30 subjects x 6 activity conditions (30x6=180) and 68 columns compris
 features.
 
 
-## Codes used in **input** raw data files
+## CODES USED IN **INPUT** RAW DATA FILES
 
 ### Subject IDs
 There are thirty unique Subject IDs. These are coded 1-30.
@@ -685,7 +685,7 @@ This consists of 21 subjects in 6 conditions, sampled for about 1s (between 36-9
 ( 7352 = 21 x 6 x 58.349 )
 
 
-## Codes used in **intermediate** data file (processed data as at end of step 4)
+## CODES USED IN **INTERMEDIATE** DATA FILE (PROCESSED DATA AS AT END OF STEP 4)
 
 ### SubjectID (Column 1)
 There are 30 unique Subject IDs. These are coded 1-30.
