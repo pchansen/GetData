@@ -63,7 +63,7 @@ run_analysis <- function() {
     # Step 3. Use descriptive activity names to name the activities in the data set (rather than the ActivityID)
     data$ActivityID          <- as.factor(data$ActivityID)    
     levels(data$ActivityID)  <- activities$Activity
-    names(data)[2]           <- "Activity"
+    data                     <- rename(data, Activity = ActivityID)
     
     #------------------------------------------------------------------------------------------------------------------
     # Step 4. Appropriately label the data set with descriptive variable names
@@ -86,8 +86,7 @@ run_analysis <- function() {
     dataGroup <- group_by(data_long, SubjectID, Activity, Feature)
     
     # Collapse the data to extract mean values of each Feature per Activity per Subject
-    data_mean <- summarize(dataGroup,mean(Value))
-    names(data_mean)[4] <- "meanValue"
+    data_mean <- summarize(dataGroup, meanValue = mean(Value))
     
     # At this spoint could either export data in long or wide format.
     # Chose wide format for greater readability
