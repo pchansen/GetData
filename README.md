@@ -62,12 +62,11 @@ For each record in the dataset it is provided:
 
 ### Initial Inspection of Data
 
-Inspection of the unzipped data set reveals data in multiple files in multiple directories. According to the Course definition this data set is not in a "tidy" format.
+Inspection of the unzipped data set reveals data in multiple files in multiple directories. According to the course definition this data set is not in a "tidy" format.
 
 The data in the files in the subdirectories /test/Inertial Signals/ and /train/Inertial Signals/ (body_acc_[xyz].txt, body_gyro_[xyz].txt and tot_acc_[xyz].txt) appear to be 
-partially processed raw data (collected over time at 50Hz on the mobile phones) and which is then further processed to form the larger feature data sets in /test/X_test.txt and 
-/train/X_train.txt. As this would be pre-processed and post-processed versions of the same data it was therefore **assumed** that these files should not be merged into an 
-integrated data set (as per project requirement 1).
+partially processed raw data which is then further processed to form the larger feature data sets in /test/X_test.txt and /train/X_train.txt. As this would be pre-processed 
+and post-processed versions of the same data it was therefore assumed that these files should not be merged into an integrated data set (as per project requirement 1).
 
 Inpection of the processed feature data sets in in /test/X_test.txt and /train/X_train.txt reveal no missing data (NAs). Therefore no further account was made for missing data in
 the run_analysis script.
@@ -109,6 +108,45 @@ The rows of dataframe *test* and *train* were then combined into one unified dat
 
 ### Step 2 - Extract only the measurements on the mean and standard deviation
 
-There is some ambiguity about how to interpret and operationalize this. I chose to interpret this as meaning keep only those feature columns (cols 4 to 564) in the combined dataframe *data* that 
-were themselves labelled as being a mean or standard deviation. I operationalized this by searching for, and only selecting, those names in the 
-means or standard deviations 
+There is some ambiguity about how to interpret and operationalize this step. I chose to interpret this as meaning keep only those feature columns (cols 4 to 564) in the combined dataframe 
+*data* that were themselves explicitly labelled as being a mean or standard deviation. I operationalized this by searching for, and only selecting, those names in the features.txt file that 
+either contained the string "mean()" or the string "std()" to create an index *idx*. This index was used to extract only those columns from *data* that matched, together with the initial 3 
+id columns (SubjectID, ActivityID, Set). This created a reduced dataframe, still called *data* containing 82 columns (the 3 ID cols of SubjectID, ActivityID and Set + 79 mean/std feature cols)
+and 10299 rows.
+
+
+### Step 3 - Use descriptive activity names to name the activities in the data set
+
+The names of the activities present in the activity_labels.txt file were used to replace their respective ID codes in the main dataframe *data*. Specifially where the dataframe *data*, column
+*ActivityID* contains:
+- ID code 1, this is replaced with "WALKING"
+- ID code 2, this is replaced with "WALKING_UPSTAIRS"
+- ID code 3, this is replaced with "WALKING_DOWNSTAIRS"
+- ID code 4, this is replaced with "SITTING"
+- ID code 5, this is replaced with "STANDING"
+- ID code 6, this is replaced with "LAYING"
+
+The column name of the field is then renamed from "ActivityID" to "Activity"
+
+### Step 4 - Appropriately label the data set with descriptive variable names
+
+Columns 1-3 are already labelled with meaningfully descriptive variable names:
+1. SubjectID - unique number identifying subject
+2. Activity -  name of activity being undertaken
+3. Set - name of data set (test or train) from where data came
+but the remaining 79 columns containing feature data are somewhat messy partly because of the original naming scheme and also because the import of text fields as variable names has replaced certain
+characters such as "-", "(" and ")" with a "." symbol.
+
+Cleaning up these columns and making more readable is achieved by:
+
+1. Replacing all instances of "..." with "."
+2. Replacing all instances of ".." with nothing
+3. Replacing the beginning of each variable name "t" with "Time"
+4. Replacing the beginning of each variable name "f" with "Freq"
+
+### Step 5 - Creates a second, independent tidy data set with the average of each variable for each activity and each subject
+
+This is achieved very simply by using the tidyr library commands. The dataframe is first converted to long format using the gather() command. It is then grouped by SubjectID, Activity and Feature using
+the group_by() command. The summarize() command is then applied to extract the mean values of each Feature per Activity per Subject. At this point, the mean summarized tidy data needs to be written out
+to a text file. However there is a choice to be made between writing it out in long format (14220 rows by 4 cols) or wide format (180 rows by 81 cols). The latter format seems more readable so the long
+form mean summary data is converted to a wide format version using the spread() command prior to being written out as a txt file created with write.table() using row.name=FALSE.
