@@ -2,7 +2,7 @@
 #
 # Data Sciences Specialization
 # Getting and Cleaning Data Course Project
-# 15/06/2015
+# 16/06/2015
 #
 #----------------------------------------------------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ run_analysis <- function() {
     library(tidyr)    
 
     #------------------------------------------------------------------------------------------------------------------
-    # Preparatory processing stage
+    # Downloading stage
     data_dir  <- "C:/Coursera/UCI HAR Dataset"            # Directory where unzipped data is saved
     save_file <- "tidy_analysis.txt"                      # Name of the final saved output file (mean results from tidy)
     
@@ -46,8 +46,8 @@ run_analysis <- function() {
     
     #------------------------------------------------------------------------------------------------------------------
     # Step 1. Merge the training and the test sets to create one data set, converted to a dplyr table
-    test  <- cbind(test.s,  Set="test",  test.a,  test.d)
-    train <- cbind(train.s, Set="train", train.a, train.d)
+    test  <- cbind(test.s,  test.a, Set="test", test.d)         # Added extra column Set to keep track of data source
+    train <- cbind(train.s, train.a, Set="train", train.d)      # Added extra column Set to keep track of data source
     data  <- tbl_df(rbind(test,train))
     # Bit of tidying up to save memory
     rm(test.s, test.d, test.a, test, train.s, train.d, train.a, train)
