@@ -50,7 +50,7 @@ Check the README.txt file for further details about this dataset.
 
 ### Attribute Information
 
-For each record in the dataset it is provided:
+For each record in the dataset is provided:
 - Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
 - Triaxial Angular velocity from the gyroscope.
 - A 561-feature vector with time and frequency domain variables.
@@ -83,7 +83,7 @@ There is only one R script (run_analysis.R) needed for this project. This script
 
 #### Loading of data
 
-The script checks whether or not the zipped data file has been downloaded and unzipped. If this has not happened, then it downloads the zip file and unzips it in a pre-specified directory.
+The script checks whether or not the zip data file has been downloaded and unzipped. If this has not happened, then it downloads the zip file and unzips it in a pre-specified directory.
 The 8 main data files are then read into memory as dataframes. The files are:
 - features.txt				Description of data features in columns of X_*.txt files
 - activity_labels.txt 		Description of activities in column 2 of y_*.txt files
@@ -131,9 +131,11 @@ The column name of the field is then renamed from "ActivityID" to "Activity"
 ### Step 4 - Appropriately label the data set with descriptive variable names
 
 Columns 1-3 are already labelled with meaningfully descriptive variable names:
+
 1. SubjectID - unique number identifying subject
 2. Activity -  name of activity being undertaken
 3. Set - name of data set (test or train) from where data came
+
 but the remaining 79 columns containing feature data are somewhat messy partly because of the original naming scheme and also because the import of text fields as variable names has replaced certain
 characters such as "-", "(" and ")" with a "." symbol.
 
