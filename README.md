@@ -1,6 +1,6 @@
-# GetData
+# Getting and Cleaning Data Module Course Project
 
-## Getting and Cleaning Data Module Course Project
+## Background
 
 ### Information from Course Project Assigment
 
@@ -56,4 +56,20 @@ For each record in the dataset it is provided:
 - A 561-feature vector with time and frequency domain variables.
 - Its activity label.
 - An identifier of the subject who carried out the experiment. 
+
+
+## Data Processing
+
+### Initial Inspection of Data
+
+Inspection of the unzipped data set reveals data in multiple files in multiple directories. According to the Course definition this data set is not in a "tidy" format.
+
+The data in the files in the subdirectories *test/Inertial Signals/* and *train/Inertial Signals/* (body_acc_[xyz].txt, body_gyro_[xyz].txt and tot_acc_[xyz].txt) appear to be 
+partially processed raw data (collected over time at 50Hz on the mobile phones) and which is then further processed to form the larger feature data sets in *test/X_test.txt* and 
+*train/X_train.txt*. It is therefore **assumed** that these files should not be merged into an integrated data set (as per project requirement 1).
+
+Inpection of the processed feature data sets in in *test/X_test.txt* and *train/X_train.txt* reveal no missing data (NA). Therefore no further account was made for missing data in
+the run_analysis script.
+
+### run_analysis.R script
 
