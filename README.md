@@ -1,4 +1,4 @@
-# Getting and Cleaning Data Module Course Project
+# Getting and Cleaning Data Project
 
 ## Background
 
@@ -48,7 +48,7 @@ features was obtained by calculating variables from the time and frequency domai
 Check the README.txt file for further details about this dataset.
    
 
-### Attribute Information:
+### Attribute Information
 
 For each record in the dataset it is provided:
 - Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
@@ -64,12 +64,51 @@ For each record in the dataset it is provided:
 
 Inspection of the unzipped data set reveals data in multiple files in multiple directories. According to the Course definition this data set is not in a "tidy" format.
 
-The data in the files in the subdirectories *test/Inertial Signals/* and *train/Inertial Signals/* (body_acc_[xyz].txt, body_gyro_[xyz].txt and tot_acc_[xyz].txt) appear to be 
-partially processed raw data (collected over time at 50Hz on the mobile phones) and which is then further processed to form the larger feature data sets in *test/X_test.txt* and 
-*train/X_train.txt*. It is therefore **assumed** that these files should not be merged into an integrated data set (as per project requirement 1).
+The data in the files in the subdirectories /test/Inertial Signals/ and /train/Inertial Signals/ (body_acc_[xyz].txt, body_gyro_[xyz].txt and tot_acc_[xyz].txt) appear to be 
+partially processed raw data (collected over time at 50Hz on the mobile phones) and which is then further processed to form the larger feature data sets in /test/X_test.txt and 
+/train/X_train.txt. As this would be pre-processed and post-processed versions of the same data it was therefore **assumed** that these files should not be merged into an 
+integrated data set (as per project requirement 1).
 
-Inpection of the processed feature data sets in in *test/X_test.txt* and *train/X_train.txt* reveal no missing data (NA). Therefore no further account was made for missing data in
+Inpection of the processed feature data sets in in /test/X_test.txt and /train/X_train.txt reveal no missing data (NAs). Therefore no further account was made for missing data in
 the run_analysis script.
+
+### Package requirements
+
+The run_analysis.R script uses libraries:
+- dplyr
+- tidyr
 
 ### run_analysis.R script
 
+There is only one R script (run_analysis.R) needed for this project. This script runs all of the required steps.
+
+#### Loading of data
+
+The script checks whether or not the zipped data file has been downloaded and unzipped. If this has not happened, then it downloads the zip file and unzips it in a pre-specified directory.
+The 8 main data files are then read into memory as dataframes. The files are:
+- features.txt				Description of data features in columns of X_*.txt files
+- activity_labels.txt 		Description of activities in column 2 of y_*.txt files
+- /test/subject_test.txt	ID labels for subjects in test set
+- /test/X_test.txt			Processed feature data for test subjects
+- /test/y_test.txt			Activity labels for subjects in test set
+- /train/subject_train.txt	ID labels for subjects in training set
+- /train/X_train.txt		Processed feature data for training subjects
+- /train/y_train.txt		Activity labels for subjects in training set
+    
+
+#### Step 1 - Merging of data
+
+To start creating a tidy data set the columns of /test/subject_test.txt (1 col), /test/y_test.txt (1 col) and /test/y_test.txt (561 cols )were combined to create a new dataset, called *test*. 
+A new column descriptor "Set" containing the value "test" was also added in the event that identification of the original source of the data was needed (564 cols in total, 2947 rows).
+
+The columns of /train/subject_train.txt, /train/y_train.txt and /train/y_train.txt were similarly combined to create a new dataset, called *train*. A new column descriptor "Set"
+containing the value "train" was also added (again 564 cols in total, but with 7352 rows).
+
+The rows of dataframe *test* and *train* were then combined into one unified dataframe, called *data* (564 cols, 10299 rows).
+
+
+### Step 2 - Extract only the measurements on the mean and standard deviation
+
+There is some ambiguity about how to interpret and operationalize this. I chose to interpret this as meaning keep only those feature columns (cols 4 to 564) in the combined dataframe *data* that 
+were themselves labelled as being a mean or standard deviation. I operationalized this by searching for, and only selecting, those names in the 
+means or standard deviations 
