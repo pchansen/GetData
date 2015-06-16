@@ -183,8 +183,8 @@ id columns (SubjectID, ActivityID, Set). The features_info.txt file identifies 1
 However of these features, 8 are separable X/Y/Z measures and 9 are non-separable MAG measures so there are in fact 8 x 3 + 9 = 33 unique measures. The intention of this operationalization was 
 therefore to extract only the first two of the statistic measures (mean() and std()) from the dataset as applied to these 33 measures (i.e. 66 measurements). This choice of selection excludes those 
 features that are defined by meanFreq() (weighted average of the frequency components to obtain a mean frequency) and those defined on angle() such as angle(tBodyAccMean,gravity) (i.e. features 
-555-561 in features.txt or cols 558 to 564 in dataframe *data*). This creates a reduced dataframe, still called *data* containing only 69 columns (the 3 ID cols of SubjectID, ActivityID and Set + 66 
-mean/std feature cols) and 10299 rows.
+555-561 in features.txt or cols 558 to 564 in dataframe *data*). This creates a reduced dataframe, still called *data* but now containing only 69 columns (the 3 ID cols of SubjectID, ActivityID and Set 
++ 66 mean/std feature cols) and 10299 rows.
 
 
 ### Step 3 - Use descriptive activity names to name the activities in the data set
@@ -208,8 +208,8 @@ Columns 1-3 are already labelled with meaningfully descriptive variable names:
 2. Activity -  name of activity being undertaken
 3. Set - name of data set (test or train) from where data came
 
-but the remaining 66 columns containing feature data are somewhat messy partly because of the original naming scheme and also because the import of text fields as variable names has replaced certain
-characters such as "-", "(" and ")" with a "." symbol.
+but the remaining 66 columns containing feature data are somewhat messy partly because of the original naming scheme and also because the import of text fields from the file features.txt as 
+variable names has replaced certain characters such as "-", "(" and ")" with a "." symbol.
 
 Cleaning up these columns and making more readable is achieved by:
 
@@ -222,7 +222,7 @@ Cleaning up these columns and making more readable is achieved by:
 
 This is achieved by using the tidyr and dplyr library commands. The dataframe is first converted to long format using the gather() command. It is then grouped by SubjectID, Activity and Feature using 
 the group_by() command. The summarize() command is then applied to extract the mean values of each Feature per Activity per Subject. At this point, the mean summarized tidy data needs to be written out
-to a text file. However there is a choice to be made between writing it out in long format (11880 rows by 4 cols) or wide format (180 rows by 68 cols). The latter format seems more readable so the long
-form mean summary data is converted to a wide format version using the spread() command prior to being written out as a txt file created with write.table() using row.name=FALSE. This file has 180 rows, 
-comprising 30 subjects x 6 activity conditions (30x6=180) and 68 columns comprising 2 ID columns (SubjectID and Activity) together with 66 columns that are the mean values of the selected mean/std 
-features.
+to a text file. However there is a choice to be made between writing it out in long format (11880 rows by 4 cols) or wide format (180 rows by 68 cols). The latter format seems preferable as it is more 
+human readable. Therefore the long form mean summary data is converted to a wide format version using the spread() command prior to being written out as a txt file created with write.table() using 
+row.name=FALSE. This file has 180 rows, comprising 30 subjects x 6 activity conditions (30x6=180) and 68 columns comprising 2 ID columns (SubjectID and Activity) together with 66 columns that are the 
+mean values of the selected mean/std features.
