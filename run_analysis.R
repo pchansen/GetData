@@ -14,8 +14,9 @@ run_analysis <- function() {
 
     #------------------------------------------------------------------------------------------------------------------
     # Downloading stage
-    data_dir  <- "C:/Coursera/UCI HAR Dataset"            # Directory where unzipped data is saved
-    save_file <- "tidy_averages.txt"                      # Name of the final saved output file (mean results from tidy)
+    cur_dir   <- getwd()                        # Save current working dir
+    data_dir  <- "./UCI HAR Dataset"            # Directory where unzipped data is saved (current working dir)
+    save_file <- "tidy_averages.txt"            # Name of the final saved output file (tidy averaged data)
     
     # Check if the data files exist locally, if not retrieve and unzip them
     if (!dir.exists(data_dir)) {
@@ -92,8 +93,8 @@ run_analysis <- function() {
     # Chose wide format for greater readability
     data_mean_wide <- spread(data_mean, Feature, meanValue)
     
-    # Write this summary tidied data out
-    setwd(dirname(data_dir))
+    # Write this summary tidied data out (to current dir)
+    setwd(dirname(cur_dir))
     write.table(data_mean_wide, save_file, row.names=FALSE, quote=FALSE)
     
     # Done
