@@ -62,7 +62,7 @@ run_analysis <- function() {
     # Step 3. Use descriptive activity names to name the activities in the data set (rather than the ActivityID)
     data$ActivityID          <- as.factor(data$ActivityID)    
     levels(data$ActivityID)  <- activities$Activity
-    names(data)[3]           <- "Activity"
+    names(data)[2]           <- "Activity"
     
     #------------------------------------------------------------------------------------------------------------------
     # Step 4. Appropriately label the data set with descriptive variable names
