@@ -42,10 +42,14 @@ The rows of dataframe *test* and *train* were then combined into one unified dat
 ### Step 2 - Extract only the measurements on the mean and standard deviation
 
 There is some ambiguity about how to interpret and operationalize this step. I chose to interpret this as meaning keep only those feature columns (cols 4 to 564) in the combined dataframe 
-*data* that were themselves explicitly labelled as being a mean or standard deviation. I operationalized this by searching for, and only selecting, those names in the features.txt file that 
-either contained the string "mean()" or the string "std()" to create an index *idx*. This index was used to extract only those columns from *data* that matched, together with the initial 3 
-id columns (SubjectID, ActivityID, Set). This created a reduced dataframe, still called *data* containing 82 columns (the 3 ID cols of SubjectID, ActivityID and Set + 79 mean/std feature cols)
-and 10299 rows.
+*data* that were themselves explicitly labelled as being a mean or standard deviation. This was operationalized by searching for, and only selecting, those names in the features.txt file that 
+either contained the string "mean()" or the string "std()" to create an index *idx*. This index was used to extract only those corresponding columns from *data*, together with the initial 3 
+id columns (SubjectID, ActivityID, Set). The features_info.txt file identifies 17 different features to which various measures (such as mean(), std(), mad(), max(), min()) are applied.
+However of these features, 8 are separable X/Y/Z measures and 9 are non-separable MAG measures so there are in fact 8 x 3 + 9 = 33 unique measures. The intention of this operationalization was 
+to extract only the first two of the statistic measures (mean() and std()) from the dataset as applied to these 33 measures (i.e. 66 measurements). This choice of selection *excludes* those 
+Features that are defined by meanFreq() (weighted average of the frequency components to obtain a mean frequency) and those defined on angle() such as angle(tBodyAccMean,gravity) (i.e. features 
+555-561 in features.txt or cols 558 to 564 in dataframe *data*). This creates a reduced dataframe, still called *data* containing 69 columns (the 3 ID cols of SubjectID, ActivityID and Set + 66 
+mean/std feature cols) and 10299 rows.
 
 
 ### Step 3 - Use descriptive activity names to name the activities in the data set
@@ -69,7 +73,7 @@ Columns 1-3 are already labelled with meaningfully descriptive variable names:
 2. Activity -  name of activity being undertaken
 3. Set - name of data set (test or train) from where data came
 
-but the remaining 79 columns containing feature data are somewhat messy partly because of the original naming scheme and also because the import of text fields as variable names has replaced certain
+but the remaining 66 columns containing feature data are somewhat messy partly because of the original naming scheme and also because the import of text fields as variable names has replaced certain
 characters such as "-", "(" and ")" with a "." symbol.
 
 Cleaning up these columns and making more readable is achieved by:
@@ -83,9 +87,9 @@ Cleaning up these columns and making more readable is achieved by:
 
 This is achieved very simply by using the tidyr and dplyr library commands. The dataframe is first converted to long format using the gather() command. It is then grouped by SubjectID, Activity and Feature
 using the group_by() command. The summarize() command is then applied to extract the mean values of each Feature per Activity per Subject. At this point, the mean summarized tidy data needs to be written out
-to a text file. However there is a choice to be made between writing it out in long format (14220 rows by 4 cols) or wide format (180 rows by 81 cols). The latter format seems more readable so the long
+to a text file. However there is a choice to be made between writing it out in long format (11880 rows by 4 cols) or wide format (180 rows by 68 cols). The latter format seems more readable so the long
 form mean summary data is converted to a wide format version using the spread() command prior to being written out as a txt file created with write.table() using row.name=FALSE. This file has 180 rows, 
-comprising 30 subjects x 6 activity conditions (30x6=180) and 81 columns comprising 2 ID columns (SubjectID and Activity) together with 79 columns that are the mean values of the selected mean/std 
+comprising 30 subjects x 6 activity conditions (30x6=180) and 68 columns comprising 2 ID columns (SubjectID and Activity) together with 66 columns that are the mean values of the selected mean/std 
 features.
 
 
@@ -705,90 +709,77 @@ test
 train
 
 
-### Feature Labels (Columns 4-82)
-There are 79 of these (containing only either "mean()" or "std()") labelled as:
+### Feature Labels (Columns 4-68)
+There are 66 of these (containing only either "mean()" or "std()") labelled as:
 
 Col#	Name
- 4 TimeBodyAcc.mean.X              
- 5 TimeBodyAcc.mean.Y              
- 6 TimeBodyAcc.mean.Z              
- 7 TimeBodyAcc.std.X               
- 8 TimeBodyAcc.std.Y               
- 9 TimeBodyAcc.std.Z               
-10 TimeGravityAcc.mean.X           
-11 TimeGravityAcc.mean.Y           
-12 TimeGravityAcc.mean.Z           
-13 TimeGravityAcc.std.X            
-14 TimeGravityAcc.std.Y            
-15 TimeGravityAcc.std.Z            
-16 TimeBodyAccJerk.mean.X          
-17 TimeBodyAccJerk.mean.Y          
-18 TimeBodyAccJerk.mean.Z          
-19 TimeBodyAccJerk.std.X           
-20 TimeBodyAccJerk.std.Y           
-21 TimeBodyAccJerk.std.Z           
-22 TimeBodyGyro.mean.X             
-23 TimeBodyGyro.mean.Y             
-24 TimeBodyGyro.mean.Z             
-25 TimeBodyGyro.std.X              
-26 TimeBodyGyro.std.Y              
-27 TimeBodyGyro.std.Z              
-28 TimeBodyGyroJerk.mean.X         
-29 TimeBodyGyroJerk.mean.Y         
-30 TimeBodyGyroJerk.mean.Z         
-31 TimeBodyGyroJerk.std.X          
-32 TimeBodyGyroJerk.std.Y          
-33 TimeBodyGyroJerk.std.Z          
-34 TimeBodyAccMag.mean             
-35 TimeBodyAccMag.std              
-36 TimeGravityAccMag.mean          
-37 TimeGravityAccMag.std           
-38 TimeBodyAccJerkMag.mean         
-39 TimeBodyAccJerkMag.std          
-40 TimeBodyGyroMag.mean            
-41 TimeBodyGyroMag.std             
-42 TimeBodyGyroJerkMag.mean        
-43 TimeBodyGyroJerkMag.std         
-44 FreqBodyAcc.mean.X              
-45 FreqBodyAcc.mean.Y              
-46 FreqBodyAcc.mean.Z              
-47 FreqBodyAcc.std.X               
-48 FreqBodyAcc.std.Y               
-49 FreqBodyAcc.std.Z               
-50 FreqBodyAcc.meanFreq.X          
-51 FreqBodyAcc.meanFreq.Y          
-52 FreqBodyAcc.meanFreq.Z          
-53 FreqBodyAccJerk.mean.X          
-54 FreqBodyAccJerk.mean.Y          
-55 FreqBodyAccJerk.mean.Z          
-56 FreqBodyAccJerk.std.X           
-57 FreqBodyAccJerk.std.Y           
-58 FreqBodyAccJerk.std.Z           
-59 FreqBodyAccJerk.meanFreq.X      
-60 FreqBodyAccJerk.meanFreq.Y      
-61 FreqBodyAccJerk.meanFreq.Z      
-62 FreqBodyGyro.mean.X             
-63 FreqBodyGyro.mean.Y             
-64 FreqBodyGyro.mean.Z             
-65 FreqBodyGyro.std.X              
-66 FreqBodyGyro.std.Y              
-67 FreqBodyGyro.std.Z              
-68 FreqBodyGyro.meanFreq.X         
-69 FreqBodyGyro.meanFreq.Y         
-70 FreqBodyGyro.meanFreq.Z         
-71 FreqBodyAccMag.mean             
-72 FreqBodyAccMag.std              
-73 FreqBodyAccMag.meanFreq         
-74 FreqBodyBodyAccJerkMag.mean     
-75 FreqBodyBodyAccJerkMag.std      
-76 FreqBodyBodyAccJerkMag.meanFreq 
-77 FreqBodyBodyGyroMag.mean        
-78 FreqBodyBodyGyroMag.std         
-79 FreqBodyBodyGyroMag.meanFreq    
-80 FreqBodyBodyGyroJerkMag.mean    
-81 FreqBodyBodyGyroJerkMag.std     
-82 FreqBodyBodyGyroJerkMag.meanFreq
-
+ 4		TimeBodyAcc.mean.X          
+ 5		TimeBodyAcc.mean.Y          
+ 6		TimeBodyAcc.mean.Z          
+ 7		TimeBodyAcc.std.X           
+ 8		TimeBodyAcc.std.Y           
+ 9		TimeBodyAcc.std.Z           
+10		TimeGravityAcc.mean.X       
+11		TimeGravityAcc.mean.Y       
+12		TimeGravityAcc.mean.Z       
+13		TimeGravityAcc.std.X        
+14		TimeGravityAcc.std.Y        
+15		TimeGravityAcc.std.Z        
+16		TimeBodyAccJerk.mean.X      
+17		TimeBodyAccJerk.mean.Y      
+18		TimeBodyAccJerk.mean.Z      
+19		TimeBodyAccJerk.std.X       
+20		TimeBodyAccJerk.std.Y       
+21		TimeBodyAccJerk.std.Z       
+22		TimeBodyGyro.mean.X         
+23		TimeBodyGyro.mean.Y         
+24		TimeBodyGyro.mean.Z         
+25		TimeBodyGyro.std.X          
+26		TimeBodyGyro.std.Y          
+27		TimeBodyGyro.std.Z          
+28		TimeBodyGyroJerk.mean.X     
+29		TimeBodyGyroJerk.mean.Y     
+30		TimeBodyGyroJerk.mean.Z     
+31		TimeBodyGyroJerk.std.X      
+32		TimeBodyGyroJerk.std.Y      
+33		TimeBodyGyroJerk.std.Z      
+34		TimeBodyAccMag.mean         
+35		TimeBodyAccMag.std          
+36		TimeGravityAccMag.mean      
+37		TimeGravityAccMag.std       
+38		TimeBodyAccJerkMag.mean     
+39		TimeBodyAccJerkMag.std      
+40		TimeBodyGyroMag.mean        
+41		TimeBodyGyroMag.std         
+42		TimeBodyGyroJerkMag.mean    
+43		TimeBodyGyroJerkMag.std     
+44		FreqBodyAcc.mean.X          
+45		FreqBodyAcc.mean.Y          
+46		FreqBodyAcc.mean.Z          
+47		FreqBodyAcc.std.X           
+48		FreqBodyAcc.std.Y           
+49		FreqBodyAcc.std.Z           
+50		FreqBodyAccJerk.mean.X      
+51		FreqBodyAccJerk.mean.Y      
+52		FreqBodyAccJerk.mean.Z      
+53		FreqBodyAccJerk.std.X       
+54		FreqBodyAccJerk.std.Y       
+55		FreqBodyAccJerk.std.Z       
+56		FreqBodyGyro.mean.X         
+57		FreqBodyGyro.mean.Y         
+58		FreqBodyGyro.mean.Z         
+59		FreqBodyGyro.std.X          
+60		FreqBodyGyro.std.Y          
+61		FreqBodyGyro.std.Z          
+62		FreqBodyAccMag.mean         
+63		FreqBodyAccMag.std          
+64		FreqBodyBodyAccJerkMag.mean 
+65		FreqBodyBodyAccJerkMag.std  
+66		FreqBodyBodyGyroMag.mean    
+67		FreqBodyBodyGyroMag.std     
+68		FreqBodyBodyGyroJerkMag.mean
+69		FreqBodyBodyGyroJerkMag.std 
+ 
 
 ### Length of intermediate data file
 This has 10299 rows, comprised of 2947 rows from the test data set and 7352 rows from the train data set.
@@ -796,7 +787,7 @@ This has 10299 rows, comprised of 2947 rows from the test data set and 7352 rows
 
 
 
-## Codes used in **output** tidy data file (tidy_analysis.txt)
+## CODES USED IN **OUTPUT** TIDY DATA FILE ("tidy_averages.txt")
 This is the independent tidy data set containing the average of each variable for each activity and each subject.
 
 
@@ -818,9 +809,77 @@ LAYING
 This is the same as the intermediate *data* file.
 
 
-### Mean Feature Labels (Columns 3-81)
-There are 79 of these, the same as the intermediate *data* file above. However, here the values represent the average of each variable for each activity and each subject (i.e. collapsed over time)
+### Mean Feature Labels (Columns 3-68)
+There are 66 of these, labelled the same as the intermediate *data* file above. However, here the values represent the average of each variable for each activity and each subject (i.e. collapsed over time)
 
+Col#	Name
+ 3		TimeBodyAcc.mean.X          
+ 4		TimeBodyAcc.mean.Y          
+ 5		TimeBodyAcc.mean.Z          
+ 6		TimeBodyAcc.std.X           
+ 7		TimeBodyAcc.std.Y           
+ 8		TimeBodyAcc.std.Z           
+ 9		TimeGravityAcc.mean.X       
+10		TimeGravityAcc.mean.Y       
+11		TimeGravityAcc.mean.Z       
+12		TimeGravityAcc.std.X        
+13		TimeGravityAcc.std.Y        
+14		TimeGravityAcc.std.Z        
+15		TimeBodyAccJerk.mean.X      
+16		TimeBodyAccJerk.mean.Y      
+17		TimeBodyAccJerk.mean.Z      
+18		TimeBodyAccJerk.std.X       
+19		TimeBodyAccJerk.std.Y       
+20		TimeBodyAccJerk.std.Z       
+21		TimeBodyGyro.mean.X         
+22		TimeBodyGyro.mean.Y         
+23		TimeBodyGyro.mean.Z         
+24		TimeBodyGyro.std.X          
+25		TimeBodyGyro.std.Y          
+26		TimeBodyGyro.std.Z          
+27		TimeBodyGyroJerk.mean.X     
+28		TimeBodyGyroJerk.mean.Y     
+29		TimeBodyGyroJerk.mean.Z     
+30		TimeBodyGyroJerk.std.X      
+31		TimeBodyGyroJerk.std.Y      
+32		TimeBodyGyroJerk.std.Z      
+33		TimeBodyAccMag.mean         
+34		TimeBodyAccMag.std          
+35		TimeGravityAccMag.mean      
+36		TimeGravityAccMag.std       
+37		TimeBodyAccJerkMag.mean     
+38		TimeBodyAccJerkMag.std      
+39		TimeBodyGyroMag.mean        
+40		TimeBodyGyroMag.std         
+41		TimeBodyGyroJerkMag.mean    
+42		TimeBodyGyroJerkMag.std     
+43		FreqBodyAcc.mean.X          
+44		FreqBodyAcc.mean.Y          
+45		FreqBodyAcc.mean.Z          
+46		FreqBodyAcc.std.X           
+47		FreqBodyAcc.std.Y           
+48		FreqBodyAcc.std.Z           
+49		FreqBodyAccJerk.mean.X      
+50		FreqBodyAccJerk.mean.Y      
+51		FreqBodyAccJerk.mean.Z      
+52		FreqBodyAccJerk.std.X       
+53		FreqBodyAccJerk.std.Y       
+54		FreqBodyAccJerk.std.Z       
+55		FreqBodyGyro.mean.X         
+56		FreqBodyGyro.mean.Y         
+57		FreqBodyGyro.mean.Z         
+58		FreqBodyGyro.std.X          
+59		FreqBodyGyro.std.Y          
+60		FreqBodyGyro.std.Z          
+61		FreqBodyAccMag.mean         
+62		FreqBodyAccMag.std          
+63		FreqBodyBodyAccJerkMag.mean 
+64		FreqBodyBodyAccJerkMag.std  
+65		FreqBodyBodyGyroMag.mean    
+66		FreqBodyBodyGyroMag.std     
+67		FreqBodyBodyGyroJerkMag.mean
+68		FreqBodyBodyGyroJerkMag.std
+ 
 
 ### Length of output tidy data file
 This file has 180 rows corresponding to each of the 30 subjects in each of the 6 activity conditions.
