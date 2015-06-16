@@ -93,6 +93,8 @@ These signals were used to estimate variables of the feature vector for each pat
 - fBodyGyroMag
 - fBodyGyroJerkMag
 
+Note there are 8 XYZ measures and 9 Mag measures. Therefore there are 8 x 3 + 9 = 33 unique measures.
+
 The set of variables that were estimated from these signals are: 
 
 - mean(): Mean value
@@ -111,7 +113,7 @@ The set of variables that were estimated from these signals are:
 - skewness(): skewness of the frequency domain signal 
 - kurtosis(): kurtosis of the frequency domain signal 
 - bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
-- angle(): Angle between to vectors.
+- angle(): Angle between two vectors.
 
 Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
 
