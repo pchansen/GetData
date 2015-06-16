@@ -715,72 +715,72 @@ There are 66 of these (containing only either "mean()" or "std()") labelled as:
 
 **Col	Name**
 
- 4.		 TimeBodyAcc.mean.X          
- 5.		 TimeBodyAcc.mean.Y          
- 6.		 TimeBodyAcc.mean.Z          
- 7.		 TimeBodyAcc.std.X           
- 8.		 TimeBodyAcc.std.Y           
- 9.		 TimeBodyAcc.std.Z           
-10.		 TimeGravityAcc.mean.X       
-11.		 TimeGravityAcc.mean.Y       
-12.		 TimeGravityAcc.mean.Z       
-13.		 TimeGravityAcc.std.X        
-14.		 TimeGravityAcc.std.Y        
-15.		 TimeGravityAcc.std.Z        
-16.		 TimeBodyAccJerk.mean.X      
-17.		 TimeBodyAccJerk.mean.Y      
-18.		 TimeBodyAccJerk.mean.Z      
-19.		 TimeBodyAccJerk.std.X       
-20.		 TimeBodyAccJerk.std.Y       
-21.		 TimeBodyAccJerk.std.Z       
-22.		 TimeBodyGyro.mean.X         
-23.		 TimeBodyGyro.mean.Y         
-24.		 TimeBodyGyro.mean.Z         
-25.		 TimeBodyGyro.std.X          
-26.		 TimeBodyGyro.std.Y          
-27.		 TimeBodyGyro.std.Z          
-28.		 TimeBodyGyroJerk.mean.X     
-29.		 TimeBodyGyroJerk.mean.Y     
-30.		 TimeBodyGyroJerk.mean.Z     
-31.		 TimeBodyGyroJerk.std.X      
-32.		 TimeBodyGyroJerk.std.Y      
-33.		 TimeBodyGyroJerk.std.Z      
-34.		 TimeBodyAccMag.mean         
-35.		 TimeBodyAccMag.std          
-36.		 TimeGravityAccMag.mean      
-37.		 TimeGravityAccMag.std       
-38.		 TimeBodyAccJerkMag.mean     
-39.		 TimeBodyAccJerkMag.std      
-40.		 TimeBodyGyroMag.mean        
-41.		 TimeBodyGyroMag.std         
-42.		 TimeBodyGyroJerkMag.mean    
-43.		 TimeBodyGyroJerkMag.std     
-44.		 FreqBodyAcc.mean.X          
-45.		 FreqBodyAcc.mean.Y          
-46.		 FreqBodyAcc.mean.Z          
-47.		 FreqBodyAcc.std.X           
-48.		 FreqBodyAcc.std.Y           
-49.		 FreqBodyAcc.std.Z           
-50.		 FreqBodyAccJerk.mean.X      
-51.		 FreqBodyAccJerk.mean.Y      
-52.		 FreqBodyAccJerk.mean.Z      
-53.		 FreqBodyAccJerk.std.X       
-54.		 FreqBodyAccJerk.std.Y       
-55.		 FreqBodyAccJerk.std.Z       
-56.		 FreqBodyGyro.mean.X         
-57.		 FreqBodyGyro.mean.Y         
-58.		 FreqBodyGyro.mean.Z         
-59.		 FreqBodyGyro.std.X          
-60.		 FreqBodyGyro.std.Y          
-61.		 FreqBodyGyro.std.Z          
-62.		 FreqBodyAccMag.mean         
-63.		 FreqBodyAccMag.std          
-64.		 FreqBodyBodyAccJerkMag.mean 
-65.		 FreqBodyBodyAccJerkMag.std  
-66.		 FreqBodyBodyGyroMag.mean    
-67.		 FreqBodyBodyGyroMag.std     
-68.		 FreqBodyBodyGyroJerkMag.mean
-69.		 FreqBodyBodyGyroJerkMag.std 
+ 4		 TimeBodyAcc.mean.X          
+ 5		 TimeBodyAcc.mean.Y          
+ 6		 TimeBodyAcc.mean.Z          
+ 7		 TimeBodyAcc.std.X           
+ 8		 TimeBodyAcc.std.Y           
+ 9		 TimeBodyAcc.std.Z           
+10		 TimeGravityAcc.mean.X       
+11		 TimeGravityAcc.mean.Y       
+12		 TimeGravityAcc.mean.Z       
+13		 TimeGravityAcc.std.X        
+14		 TimeGravityAcc.std.Y        
+15		 TimeGravityAcc.std.Z        
+16		 TimeBodyAccJerk.mean.X      
+17		 TimeBodyAccJerk.mean.Y      
+18		 TimeBodyAccJerk.mean.Z      
+19		 TimeBodyAccJerk.std.X       
+20		 TimeBodyAccJerk.std.Y       
+21		 TimeBodyAccJerk.std.Z       
+22		 TimeBodyGyro.mean.X         
+23		 TimeBodyGyro.mean.Y         
+24		 TimeBodyGyro.mean.Z         
+25		 TimeBodyGyro.std.X          
+26		 TimeBodyGyro.std.Y          
+27		 TimeBodyGyro.std.Z          
+28		 TimeBodyGyroJerk.mean.X     
+29		 TimeBodyGyroJerk.mean.Y     
+30		 TimeBodyGyroJerk.mean.Z     
+31		 TimeBodyGyroJerk.std.X      
+32		 TimeBodyGyroJerk.std.Y      
+33		 TimeBodyGyroJerk.std.Z      
+34		 TimeBodyAccMag.mean         
+35		 TimeBodyAccMag.std          
+36		 TimeGravityAccMag.mean      
+37		 TimeGravityAccMag.std       
+38		 TimeBodyAccJerkMag.mean     
+39		 TimeBodyAccJerkMag.std      
+40		 TimeBodyGyroMag.mean        
+41		 TimeBodyGyroMag.std         
+42		 TimeBodyGyroJerkMag.mean    
+43		 TimeBodyGyroJerkMag.std     
+44		 FreqBodyAcc.mean.X          
+45		 FreqBodyAcc.mean.Y          
+46		 FreqBodyAcc.mean.Z          
+47		 FreqBodyAcc.std.X           
+48		 FreqBodyAcc.std.Y           
+49		 FreqBodyAcc.std.Z           
+50		 FreqBodyAccJerk.mean.X      
+51		 FreqBodyAccJerk.mean.Y      
+52		 FreqBodyAccJerk.mean.Z      
+53		 FreqBodyAccJerk.std.X       
+54		 FreqBodyAccJerk.std.Y       
+55		 FreqBodyAccJerk.std.Z       
+56		 FreqBodyGyro.mean.X         
+57		 FreqBodyGyro.mean.Y         
+58		 FreqBodyGyro.mean.Z         
+59		 FreqBodyGyro.std.X          
+60		 FreqBodyGyro.std.Y          
+61		 FreqBodyGyro.std.Z          
+62		 FreqBodyAccMag.mean         
+63		 FreqBodyAccMag.std          
+64		 FreqBodyBodyAccJerkMag.mean 
+65		 FreqBodyBodyAccJerkMag.std  
+66		 FreqBodyBodyGyroMag.mean    
+67		 FreqBodyBodyGyroMag.std     
+68		 FreqBodyBodyGyroJerkMag.mean
+69		 FreqBodyBodyGyroJerkMag.std 
  
 
 ### Length of intermediate data file
