@@ -46,9 +46,9 @@ There is some ambiguity about how to interpret and operationalize this step. I c
 either contained the string "mean()" or the string "std()" to create an index *idx*. This index was used to extract only those corresponding columns from *data*, together with the initial 3 
 id columns (SubjectID, ActivityID, Set). The features_info.txt file identifies 17 different features to which various measures (such as mean(), std(), mad(), max(), min()) are applied.
 However of these features, 8 are separable X/Y/Z measures and 9 are non-separable MAG measures so there are in fact 8 x 3 + 9 = 33 unique measures. The intention of this operationalization was 
-to extract only the first two of the statistic measures (mean() and std()) from the dataset as applied to these 33 measures (i.e. 66 measurements). This choice of selection excludes those 
-Features that are defined by meanFreq() (weighted average of the frequency components to obtain a mean frequency) and those defined on angle() such as angle(tBodyAccMean,gravity) (i.e. features 
-555-561 in features.txt or cols 558 to 564 in dataframe *data*). This creates a reduced dataframe, still called *data* containing 69 columns (the 3 ID cols of SubjectID, ActivityID and Set + 66 
+therefore to extract only the first two of the statistic measures (mean() and std()) from the dataset as applied to these 33 measures (i.e. 66 measurements). This choice of selection excludes those 
+features that are defined by meanFreq() (weighted average of the frequency components to obtain a mean frequency) and those defined on angle() such as angle(tBodyAccMean,gravity) (i.e. features 
+555-561 in features.txt or cols 558 to 564 in dataframe *data*). This creates a reduced dataframe, still called *data* containing only 69 columns (the 3 ID cols of SubjectID, ActivityID and Set + 66 
 mean/std feature cols) and 10299 rows.
 
 
@@ -85,8 +85,8 @@ Cleaning up these columns and making more readable is achieved by:
 
 ### Step 5 - Creates a second, independent tidy data set with the average of each variable for each activity and each subject
 
-This is achieved very simply by using the tidyr and dplyr library commands. The dataframe is first converted to long format using the gather() command. It is then grouped by SubjectID, Activity and Feature
-using the group_by() command. The summarize() command is then applied to extract the mean values of each Feature per Activity per Subject. At this point, the mean summarized tidy data needs to be written out
+This is achieved by using the tidyr and dplyr library commands. The dataframe is first converted to long format using the gather() command. It is then grouped by SubjectID, Activity and Feature using 
+the group_by() command. The summarize() command is then applied to extract the mean values of each Feature per Activity per Subject. At this point, the mean summarized tidy data needs to be written out
 to a text file. However there is a choice to be made between writing it out in long format (11880 rows by 4 cols) or wide format (180 rows by 68 cols). The latter format seems more readable so the long
 form mean summary data is converted to a wide format version using the spread() command prior to being written out as a txt file created with write.table() using row.name=FALSE. This file has 180 rows, 
 comprising 30 subjects x 6 activity conditions (30x6=180) and 68 columns comprising 2 ID columns (SubjectID and Activity) together with 66 columns that are the mean values of the selected mean/std 
@@ -101,12 +101,12 @@ There are 30 unique Subject IDs. These are coded as integers in the range 1-30.
 ### Activity Labels (activity_labels.txt)
 There are 6 of these, labelled as:
 
-1 WALKING
-2 WALKING_UPSTAIRS
-3 WALKING_DOWNSTAIRS
-4 SITTING
-5 STANDING
-6 LAYING
+1 WALKING  
+2 WALKING_UPSTAIRS  
+3 WALKING_DOWNSTAIRS  
+4 SITTING  
+5 STANDING  
+6 LAYING  
 
 ### Feature Labels (features.txt)
 There are 561 of these, labelled as:
