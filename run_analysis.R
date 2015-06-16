@@ -93,8 +93,8 @@ run_analysis <- function() {
     # Chose wide format for greater readability
     data_mean_wide <- spread(data_mean, Feature, meanValue)
     
-    # Write this summary tidied data out (to current dir)
-    setwd(dirname(cur_dir))
+    # Write this summary tidied data out (to current working dir)
+    setwd(cur_dir)
     write.table(data_mean_wide, save_file, row.names=FALSE, quote=FALSE)
     
     # Done
