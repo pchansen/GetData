@@ -677,12 +677,12 @@ There are 561 of these, labelled as:
 ### Length of files (number of rows)
 
 The /test/X_test.txt consists of 2947 rows.
-This consists of 9 subjects in 6 conditions, sampled for about 1s (between 38-73 measurements at 50Hz, mean=54.574) each.
-( 2947 = 9 x 6 x 54.574 )
+This consists of 9 subjects in 6 conditions, each of which has a mean of 54.574 samples (range 38-73 measurements per condition per subject).
+(2947 = 9 x 6 x 54.574) 
 
 The /train/X_train.txt consists of 7352 rows.
-This consists of 21 subjects in 6 conditions, sampled for about 1s (between 36-95 measurements at 50Hz, mean=58.349) each.
-( 7352 = 21 x 6 x 58.349 )
+This consists of 21 subjects in 6 conditions,  each of which has a mean of 58.349 samples (range 36-95 measurements per condition per subject).
+(7352 = 21 x 6 x 58.349)
 
 
 ## CODES USED IN **INTERMEDIATE** DATA FILE (PROCESSED DATA AS AT END OF STEP 4)
@@ -784,7 +784,7 @@ There are 66 of these (containing only either "mean()" or "std()") labelled as:
 
 ### Length of intermediate data file
 This has 10299 rows, comprised of 2947 rows from the test data set and 7352 rows from the train data set.
-( 10299 = 2947 + 7352 )
+(10299 = 2947 + 7352)
 
 
 
@@ -884,4 +884,4 @@ There are 66 of these, labelled the same as the intermediate *data* file above. 
 
 ### Length of output tidy data file
 This file has 180 rows corresponding to each of the 30 subjects in each of the 6 activity conditions.
-( 180 = 30 x 6 )
+(180 = 30 x 6)
